@@ -61,9 +61,13 @@ source $BIN_DIR/steps/hooks/pre_compile
 mkdir -p $CACHE_DIR
 
 # Restore old artifacts from the cache.
+echo "[Starting] Restore old artifacts from the cache"
+echo $(date)
 for dir in $CACHED_DIRS; do
   cp -R $CACHE_DIR/$dir . &> /dev/null || true
 done
+echo "[Finished] Restore old artifacts from the cache"
+echo $(date)
 
 set +e
 # Create set-aside `.heroku` folder.
