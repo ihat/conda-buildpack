@@ -6,9 +6,13 @@ if [ ! -d /app/.heroku/miniconda ]; then
 fi
 
 
-if [ -f conda-requirements.txt ]; then
+if [ -f conda-requirements-common.txt ]; then
     puts-step "Installing dependencies using Conda"
-    conda install --file conda-requirements.txt --yes | indent
+    FILE_ARGS="--file conda-requirements-common.txt"
+    if [ -f conda-requirements-linux.txt ]; then
+        FILE_ARGS="$FILE_ARGS --file conda-requirements-linux.txt"
+    fi
+    conda install $FILE_ARGS --yes | indent
 fi
 
 if [ -f requirements.txt ]; then
